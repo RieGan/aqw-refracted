@@ -1,0 +1,28 @@
+appId: dev.riegan.pepflash-electron
+productName: PepFlash Electron
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - out/main/**
+  - out/preload/**
+  - out/renderer/**
+  - resources/**
+linux:
+  target:
+    - AppImage
+  category: Game
+  maintainer: RieGan
+  description: Electron app with Pepper Flash support
+win:
+  target:
+    - portable
+mac:
+  target:
+    - target: zip
+      arch:
+        - x64
+        - arm64
+  category: public.app-category.games
+appImage:
+  artifactName: ${productName}-${version}.${ext}

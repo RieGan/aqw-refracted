@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 220 10% 82%;
+    --card: 222 47% 4%;
+    --card-foreground: 220 10% 82%;
+    --popover: 222 47% 4%;
+    --popover-foreground: 220 10% 82%;
+    --primary: 240 5% 78%;
+    --primary-foreground: 240 10% 10%;
+    --secondary: 222 20% 17%;
+    --secondary-foreground: 220 10% 82%;
+    --muted: 222 20% 13%;
+    --muted-foreground: 220 5% 46%;
+    --accent: 222 20% 17%;
+    --accent-foreground: 220 10% 82%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 222 15% 15%;
+    --input: 222 15% 15%;
+    --ring: 222 15% 20%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted)) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 2px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}

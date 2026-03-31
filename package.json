@@ -1,0 +1,59 @@
+{
+  "name": "pepflash-electron",
+  "version": "0.1.0",
+  "description": "Electron app with Pepper Flash (PepFlash) support",
+  "main": "./out/main/index.js",
+  "browserslist": [
+    "Chrome 87"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:renderer\" \"pnpm dev:main\"",
+    "dev:main": "tsc -p tsconfig.node.json --watch",
+    "dev:renderer": "vite",
+    "build": "pnpm build:main && pnpm build:preload && pnpm build:renderer",
+    "build:main": "tsc -p tsconfig.node.json",
+    "build:preload": "tsc -p tsconfig.preload.json",
+    "build:renderer": "vite build",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json",
+    "typecheck:preload": "tsc --noEmit -p tsconfig.preload.json",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json",
+    "typecheck": "pnpm typecheck:node && pnpm typecheck:preload && pnpm typecheck:web",
+    "lint": "biome check --write .",
+    "format": "biome format --write .",
+    "start": "electron . --no-sandbox --disable-gpu",
+    "dist:linux": "pnpm build && electron-builder --linux",
+    "dist:win": "pnpm build && electron-builder --win",
+    "dist:mac": "pnpm build && electron-builder --mac",
+    "dist:all": "pnpm build && electron-builder --linux --win --mac"
+  },
+  "dependencies": {
+    "radix-ui": "^1.4.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller"
+    ]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.9",
+    "@types/node": "^25.5.0",
+    "autoprefixer": "^10.4.20",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "concurrently": "^9.1.2",
+    "electron": "11.5.0",
+    "electron-builder": "^26.8.1",
+    "lucide-react": "^1.7.0",
+    "tailwind-merge": "^3.5.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
+  }
+}
