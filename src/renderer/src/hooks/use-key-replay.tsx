@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useRef, useState } from 'react'
-import { RANDOM_DELAY_MAX_MS } from '@/lib/constants'
+import { FLASH_PLAYER_ELEMENT_ID, RANDOM_DELAY_MAX_MS } from '@/lib/constants'
 import type { KeyReplayEntry } from '@/lib/key-recordings'
 
 const delay = async (ms: number) => {
@@ -34,7 +34,7 @@ function useKeyReplay() {
 
       // Click on the body to ensure focus every 3 keys
       if (loopCount % 3 === 0) {
-        await window.api.sendClick('root', null, 'center')
+        await window.api.sendClick(FLASH_PLAYER_ELEMENT_ID, null, 'bottom')
       }
       loopCount++
 

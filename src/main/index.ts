@@ -32,6 +32,7 @@ function createWindow(): void {
       backgroundThrottling: false,
       offscreen: false,
       plugins: true,
+      nativeWindowOpen: true,
     },
   })
 
@@ -40,7 +41,8 @@ function createWindow(): void {
     mainWindow.setMenu(null)
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
-    mainWindow.webContents.openDevTools({ mode: 'detach' })
+    // mainWindow.webContents.openDevTools({ mode: 'detach' })
+    // mainWindow.loadURL('chrome://gpu')
   }
 
   mainWindow.on('closed', () => {
@@ -175,7 +177,7 @@ function setupPepFlash(): void {
 
   // Register the Pepper Flash plugin
   app.commandLine.appendSwitch('ppapi-flash-path', flashPluginPath)
-  app.commandLine.appendSwitch('ppapi-flash-version', '32.0.0.465')
+  app.commandLine.appendSwitch('ppapi-flash-version', '32.0.0.371')
 
   // Enable Flash
   app.commandLine.appendSwitch('enable-plugins')
@@ -184,30 +186,24 @@ function setupPepFlash(): void {
   console.log('[PepFlash] Plugin path:', flashPluginPath)
 }
 
-// Core WebGPU activation
-// app.commandLine.appendSwitch('enable-unsafe-webgpu')
-// app.commandLine.appendSwitch('ignore-gpu-blocklist')
-// app.commandLine.appendSwitch('enable-gpu-rasterization')
-// app.commandLine.appendSwitch('enable-zero-copy')
-
-// app.commandLine.appendSwitch(
-//   'enable-features',
-//   'AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,' +
-//     'VaapiVideoDecoder,VaapiVideoEncoder,VaapiOnNvidiaGPUs,' +
-//     'AcceleratedVideoEncoder,CanvasOopRasterization,' +
-//     'WaylandLinuxDrmSyncobj',
-// )
-
-// app.commandLine.appendSwitch('disable-gpu-watchdog')
-// app.commandLine.appendSwitch('disable-background-timer-throttling')
-
-// app.disableDomainBlockingFor3DAPIs()
-// app.commandLine.appendSwitch('disable-gpu-process-crash-limit')
-// app.commandLine.appendSwitch('disable-renderer-backgrounding')
-app.disableHardwareAcceleration()
+// Request single instance lock
+app.requestSingleInstanceLock()
 
 // Setup Pepper Flash before app is ready
 setupPepFlash()
+
+// Disables the sandbox for all renderers
+app.commandLine.appendSwitch('no-sandbox')
+
+app.commandLine.appendSwitch('ignore-gpu-blocklist')
+app.commandLine.appendSwitch('enable-gpu-rasterization')
+app.commandLine.appendSwitch('enable-oop-rasterization')
+app.commandLine.appendSwitch('enable-accelerated-video-decode')
+app.commandLine.appendSwitch('disable-software-rasterizer') // Force disable the fallback
+app.commandLine.appendSwitch('disable-gpu-sandbox') // Prevents context crashes
+
+// Only use if you still see "Software Only" for Video Decode on Linux
+// app.commandLine.appendSwitch('use-gl', 'egl');
 
 app.whenReady().then(() => {
   setupIpcHandlers()

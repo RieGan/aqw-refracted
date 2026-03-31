@@ -35,8 +35,7 @@ export function RecordingSection({
   disabled,
   recordCount,
 }: RecordingSectionProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const recorder = useKeyRecorder(containerRef)
+  const recorder = useKeyRecorder()
   const [saveName, setSaveName] = useState('')
   const recordingListRef = useRef<HTMLDivElement>(null)
   const recordedReplayEntriesRef = useRef<KeyReplayEntry[]>([])
@@ -74,7 +73,7 @@ export function RecordingSection({
   }, [recordCount, saveName, recorder, onSave])
 
   return (
-    <div ref={containerRef} className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <div className="flex items-center gap-1.5 px-1">
         <Circle
           className={cn(

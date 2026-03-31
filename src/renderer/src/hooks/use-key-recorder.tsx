@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { KeyPressEntry, KeyReplayEntry, RecorderStatus } from '@/lib/key-recordings'
+import { useElementRef } from '@/contexts/element-ref-context'
 
 function isValidKey(key: string) {
   return /^[1-6]$/.test(key)
 }
 
-export function useKeyRecorder(containerRef: React.RefObject<HTMLDivElement | null>) {
+export function useKeyRecorder() {
+  const { embedRef } = useElementRef()
   const [state, setState] = useState<RecorderStatus>('idle')
   const [keyPresses, setKeyPresses] = useState<KeyPressEntry[]>([])
   const keyPressesRef = useRef<KeyPressEntry[]>([])
@@ -33,13 +35,13 @@ export function useKeyRecorder(containerRef: React.RefObject<HTMLDivElement | nu
     setState('waiting')
     isInitialKeyPressedRef.current = false
     setKeyPresses([])
-    containerRef.current?.addEventListener('keydown', handleKeyPress)
+    embedRef.current?.addEventListener('keydown', handleKeyPress)
   }, [])
 
   const stop = useCallback((onStop: (entries: KeyReplayEntry[]) => void) => {
     console.log('[STOP] Recorded key presses:', JSON.stringify(keyPressesRef.current))
     setState('idle')
-    containerRef.current?.removeEventListener('keydown', handleKeyPress)
+    embedRef.current?.removeEventListener('keydown', handleKeyPress)
 
     const timestamp = Date.now()
 
@@ -63,7 +65,7 @@ export function useKeyRecorder(containerRef: React.RefObject<HTMLDivElement | nu
 
   useEffect(() => {
     return () => {
-      containerRef.current?.removeEventListener('keydown', handleKeyPress)
+      embedRef.current?.removeEventListener('keydown', handleKeyPress)
     }
   }, [])
 

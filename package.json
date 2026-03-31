@@ -20,7 +20,7 @@
     "typecheck": "pnpm typecheck:node && pnpm typecheck:preload && pnpm typecheck:web",
     "lint": "biome check --write .",
     "format": "biome format --write .",
-    "start": "electron . --no-sandbox --disable-gpu",
+    "start": "electron .",
     "dist:linux": "pnpm build && electron-builder --linux",
     "dist:win": "pnpm build && electron-builder --win",
     "dist:mac": "pnpm build && electron-builder --mac",
