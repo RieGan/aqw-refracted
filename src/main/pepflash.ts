@@ -13,6 +13,9 @@ export function setupPepFlash(): void {
     linux: { file: join('linux', 'libpepflashplayer.so'), version: '34.0.0.137' },
   }
 
+  console.log(
+    `[PepFlash] Setting up Pepper Flash plugin for platform: ${process.platform} ${process.arch}`,
+  )
   const platformConfig = pluginMap[process.platform]
   if (!platformConfig) {
     console.error('[PepFlash] Unsupported platform:', process.platform)

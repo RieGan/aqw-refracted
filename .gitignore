@@ -37,13 +37,10 @@ lerna-debug.log*
 coverage
 .nyc_output
 
-# Pepper Flash plugin (now included in repo)
-# resources/libpepflashplayer.so
-# resources/*.so
-# resources/*.dll
-# resources/*.dylib
-
 # Temporary files
 *.tmp
 *.temp
 .cache
+
+# Tasks
+*.task

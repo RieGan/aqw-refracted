@@ -14,6 +14,18 @@ import { setupPepFlash } from './pepflash'
 
 let mainWindow: BrowserWindow | null = null
 
+// Ensure single instance
+app.requestSingleInstanceLock()
+
+// Command line switches must be set before the 'ready' event is emitted
+app.commandLine.appendSwitch('no-sandbox')
+
+// Set up Pepper Flash plugin and GPU settings
+setupPepFlash()
+
+// Set up GPU settings to improve performance and compatibility
+setupGpu()
+
 function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: WINDOW_WIDTH,
@@ -39,6 +51,7 @@ function createWindow(): void {
     mainWindow.setMenu(null)
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+    // mainWindow.loadURL('chrome://gpu')
   }
 
   mainWindow.on('closed', () => {
@@ -78,9 +91,3 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-//
-app.requestSingleInstanceLock()
-app.commandLine.appendSwitch('no-sandbox')
-setupPepFlash()
-setupGpu()
