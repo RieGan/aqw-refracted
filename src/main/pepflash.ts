@@ -9,7 +9,7 @@ export function setupPepFlash(): void {
 
   const pluginMap: Record<string, { file: string; version: string }> = {
     win32: { file: join('win', 'libpepflashplayer.dll'), version: '34.0.0.376' },
-    darwin: { file: join('mac', 'libpepflashplayer.plugin'), version: '34.0.0.376' },
+    darwin: { file: join('mac', 'libpepflashplayer.plugin'), version: '34.0.0.231' },
     linux: { file: join('linux', 'libpepflashplayer.so'), version: '34.0.0.137' },
   }
 

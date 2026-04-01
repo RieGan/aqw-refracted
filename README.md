@@ -1,11 +1,11 @@
 # PepFlash Electron
 
-Electron application with native Pepper Flash (PepFlash) support using the official Adobe Flash Player plugin.
+Electron application with native Pepper Flash (PepFlash) support using the Pepper Flash plugin from [clean-flash-builds](https://github.com/darktohka/clean-flash-builds).
 
 ## Features
 
-- **Native Flash Support** - Uses real Adobe Flash Player (PepFlash) instead of emulation
-- **PepFlash Plugin Integration** - Loads `libpepflashplayer.so` for authentic Flash experience
+- **Native Flash Support** - Uses real Pepper Flash plugin instead of emulation
+- **PepFlash Plugin Integration** - Cross-platform Pepper Flash plugin support (Windows, macOS, Linux)
 - **TypeScript** - Full TypeScript support with latest features
 - **React 19** - Modern UI built with React 19
 - **Tailwind CSS v4** - Utility-first styling
@@ -14,7 +14,7 @@ Electron application with native Pepper Flash (PepFlash) support using the offic
 ## Tech Stack
 
 - **Electron 11.5.0** - Desktop framework (last version with PPAPI Flash support)
-- **PepFlash Plugin** - Native Adobe Flash Player plugin
+- **PepFlash Plugin** - Native Pepper Flash plugin from clean-flash-builds
 - **React 19** - UI library
 - **TypeScript** - Type-safe development
 - **Vite** - Build tool for renderer process
@@ -25,7 +25,6 @@ Electron application with native Pepper Flash (PepFlash) support using the offic
 
 1. **Node.js** (latest LTS)
 2. **pnpm** package manager
-3. **PepFlash Plugin** (`libpepflashplayer.so`)
 
 ## Setup
 
@@ -35,24 +34,17 @@ Electron application with native Pepper Flash (PepFlash) support using the offic
 pnpm install
 ```
 
-### 2. Download Pepper Flash Plugin
+### 2. Pepper Flash Plugin (Included)
 
-The Pepper Flash plugin (`libpepflashplayer.so`) must be downloaded separately due to Adobe licensing.
+The Pepper Flash plugins are included in this project via [clean-flash-builds](https://github.com/darktohka/clean-flash-builds) (pre-built releases from [CleanFlash](https://gitlab.com/cleanflash/installer)). No separate download or manual building is required.
 
-#### Option A: Manual Download
+Plugins are stored per-platform under `resources/ppapi-plugins/`:
 
-Download from the Chromium reference builds:
-https://chromium.googlesource.com/chromium/reference_builds/chrome_linux/+/70a399ab20a884acff94450ba10fb6e2934b8a29/PepperFlash/libpepflashplayer.so
-
-Place the file in:
-- **Development**: `./resources/libpepflashplayer.so`
-- **Production**: The file will be bundled in `resources/`
-
-#### Option B: Using the Setup Script
-
-```bash
-# Download the Flash plugin to resources folder
-node scripts/download-flash.js
+```
+resources/ppapi-plugins/
+├── linux/libpepflashplayer.so
+├── mac/libpepflashplayer.plugin
+└── win/libpepflashplayer.dll
 ```
 
 ### 3. Development
@@ -90,33 +82,44 @@ pepflash-electron/
 │   ├── preload/           # Preload scripts
 │   ├── renderer/          # React UI
 │   └── assets/            # App icons
-├── resources/             # Flash plugin goes here
+├── resources/ppapi-plugins/  # Per-platform Flash plugins
 ├── out/                   # Build output
 └── dist/                  # Distribution packages
 ```
 
 ## Pepper Flash Configuration
 
-The app configures Pepper Flash in `src/main/index.ts`:
+The app configures Pepper Flash in `src/main/pepflash.ts` with cross-platform support using [clean-flash-builds](https://github.com/darktohka/clean-flash-builds) (pre-built releases from [CleanFlash](https://gitlab.com/cleanflash/installer)):
 
-```typescript
-function setupPepFlash(): void {
-  const pepFlashPath = join(process.resourcesPath, 'libpepflashplayer.so')
-  
-  // Register the plugin
-  app.commandLine.appendSwitch('ppapi-flash-path', pepFlashPath)
-  app.commandLine.appendSwitch('ppapi-flash-version', '32.0.0.465')
-  
-  // Enable Flash
-  app.commandLine.appendSwitch('enable-plugins')
-  app.commandLine.appendSwitch('allow-outdated-plugins')
-}
+| Platform | Plugin | Version |
+|----------|--------|---------|
+| Windows  | `libpepflashplayer.dll` | 34.0.0.376 |
+| macOS    | `libpepflashplayer.plugin` | 34.0.0.231 |
+| Linux    | `libpepflashplayer.so` | 34.0.0.137 |
+
+Plugins are stored per-platform under `resources/ppapi-plugins/`:
+
 ```
+resources/ppapi-plugins/
+├── linux/libpepflashplayer.so
+├── mac/libpepflashplayer.plugin
+└── win/libpepflashplayer.dll
+```
+
+At startup, the plugin is resolved from these paths (first match wins):
+
+1. `<cwd>/resources/ppapi-plugins/<platform>/`
+2. `<resourcesPath>/ppapi-plugins/<platform>/`
+3. `<appPath>/resources/ppapi-plugins/<platform>/`
+
+In production builds, electron-builder bundles only the plugin for the target platform via per-platform `extraResources` configuration.
 
 ## Important Notes
 
 - **Electron 11.5.0** is the last version that supports the Pepper Flash plugin (Chrome 87 was the last to support Flash, removed in Chrome 88/Electron 12+)
-- The Flash plugin must be downloaded separately (Adobe licensing restrictions)
+- Flash plugin is included in the project via [clean-flash-builds](https://github.com/darktohka/clean-flash-builds) (pre-built releases from [CleanFlash](https://gitlab.com/cleanflash/installer)) - no separate download required
+- This project is specifically designed for playing **AQW (AdventureQuest Worlds)** SWF files
+- **macOS M-series (Apple Silicon) users**: Rosetta 2 is required to run this application
 - Flash content must be loaded from local files or allowed domains
 - Some modern websites may block Flash content
 
@@ -133,11 +136,8 @@ pnpm lint
 pnpm format
 ```
 
-## License
-
-MIT License - See LICENSE file for details
-
 ## Acknowledgments
 
-- Adobe Flash Player - The original Flash runtime
+- clean-flash-builds - Pre-built Flash Player releases
+- CleanFlash - Community-maintained Flash Player project (https://gitlab.com/cleanflash/installer)
 - Electron - Desktop application framework

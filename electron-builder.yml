@@ -1,5 +1,6 @@
-appId: dev.riegan.pepflash-electron
-productName: PepFlash Electron
+appId: dev.riegan.aqw-refracted
+productName: AQW Refracted
+copyright: Copyright © 2026 RieGan
 directories:
   output: dist
   buildResources: resources
@@ -7,21 +8,34 @@ files:
   - out/main/**
   - out/preload/**
   - out/renderer/**
-  - resources/**
+extraResources: []
+icon: src/assets/aqw_refracted_256.png
 linux:
   target:
     - AppImage
   category: Game
   maintainer: RieGan
-  description: Electron app with Pepper Flash support
+  description: AQW Refracted - Artix Quest Worlds companion with native Flash support
+  icon: src/assets/aqw_refracted_256.png
+  extraResources:
+    - from: resources/ppapi-plugins/linux
+      to: ppapi-plugins/linux
 win:
   target:
     - portable
+  icon: src/assets/aqw_refracted_256.ico
+  extraResources:
+    - from: resources/ppapi-plugins/win
+      to: ppapi-plugins/win
 mac:
   target:
     - target: zip
       arch:
         - x64
   category: public.app-category.games
+  icon: src/assets/aqw_refracted_256.icns
+  extraResources:
+    - from: resources/ppapi-plugins/mac
+      to: ppapi-plugins/mac
 appImage:
   artifactName: ${productName}-${version}.${ext}
