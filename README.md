@@ -20,7 +20,6 @@ If you just want to play and don't want to build the app yourself, you can downl
 - **Native Flash Support** - Uses real Pepper Flash plugin instead of emulation
 - **PepFlash Plugin Integration** - Cross-platform Pepper Flash plugin support (Windows, macOS, Linux)
 - **Hardware Acceleration** - Custom Electron configuration for optimal GPU performance and hardware-accelerated rendering
-- **High Performance** - Unlocked frame rate and optimized GPU settings for smooth gameplay
 - **TypeScript** - Full TypeScript support with latest features
 - **React 19** - Modern UI built with React 19
 - **Tailwind CSS v3** - Utility-first styling
