@@ -9,9 +9,7 @@
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-brightgreen" alt="Platforms">
 </p>
 
-AQW Refracted is a modern desktop companion for **Adventure Quest Worlds** ([aq.com](https://www.aq.com)). Built with **Electron**, it provides a native-like experience with genuine Pepper Flash support, allowing you to play AQW games with improved performance and specialized tools.
-
-AQW Refracted - Artix Quest Worlds companion with native Flash support, using the Pepper Flash plugin from [clean-flash-builds](https://github.com/darktohka/clean-flash-builds).
+AQW Refracted is a modern desktop companion for **Adventure Quest Worlds** ([aq.com](https://www.aq.com)). Built with **Electron**, it provides a native-like experience with Pepper Flash support, allowing you to play AQW games with improved performance and specialized tools.
 
 ## 🚀 Downloads
 
@@ -135,15 +133,11 @@ In production builds, electron-builder bundles only the plugin for the target pl
 ## Important Notes
 
 - **Electron 11.5.0** is the last version that supports the Pepper Flash plugin (Chrome 87 was the last to support Flash, removed in Chrome 88/Electron 12+)
-- Flash plugin is included in the project via [clean-flash-builds](https://github.com/darktohka/clean-flash-builds) (pre-built releases from [CleanFlash](https://gitlab.com/cleanflash/installer)) - no separate download required
-- This project is specifically designed for playing **AQW (AdventureQuest Worlds)** SWF files
 - **macOS Users**: If you see "App is damaged and cannot be opened" when running the app, use this command in your terminal to allow it to run:
   ```bash
   sudo xattr -cr /path/to/AQW\ Refracted.app
   ```
 - **macOS M-series (Apple Silicon) users**: Rosetta 2 is required to run this application
-- Flash content must be loaded from local files or allowed domains
-- Some modern websites may block Flash content
 
 ## Code Quality
 
@@ -160,6 +154,6 @@ pnpm format
 
 ## Acknowledgments
 
-- clean-flash-builds - Pre-built Flash Player releases
+- clean-flash-builds - Pre-built Flash Player releases (https://github.com/darktohka/clean-flash-builds)
 - CleanFlash - Community-maintained Flash Player project (https://gitlab.com/cleanflash/installer)
 - Electron - Desktop application framework
