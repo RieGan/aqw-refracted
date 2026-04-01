@@ -22,7 +22,6 @@ mac:
     - target: zip
       arch:
         - x64
-        - arm64
   category: public.app-category.games
 appImage:
   artifactName: ${productName}-${version}.${ext}

@@ -7,24 +7,12 @@
     "Chrome 87"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm dev:renderer\" \"pnpm dev:main\"",
-    "dev:main": "tsc -p tsconfig.node.json --watch",
-    "dev:renderer": "vite",
-    "build": "pnpm build:main && pnpm build:preload && pnpm build:renderer",
-    "build:main": "tsc -p tsconfig.node.json",
-    "build:preload": "tsc -p tsconfig.preload.json",
-    "build:renderer": "vite build",
-    "typecheck:node": "tsc --noEmit -p tsconfig.node.json",
-    "typecheck:preload": "tsc --noEmit -p tsconfig.preload.json",
-    "typecheck:web": "tsc --noEmit -p tsconfig.web.json",
-    "typecheck": "pnpm typecheck:node && pnpm typecheck:preload && pnpm typecheck:web",
-    "lint": "biome check --write .",
-    "format": "biome format --write .",
-    "start": "electron .",
-    "dist:linux": "pnpm build && electron-builder --linux",
-    "dist:win": "pnpm build && electron-builder --win",
-    "dist:mac": "pnpm build && electron-builder --mac",
-    "dist:all": "pnpm build && electron-builder --linux --win --mac"
+    "dev": "task dev",
+    "build": "task build",
+    "start": "task start",
+    "typecheck": "task typecheck",
+    "lint": "task lint",
+    "format": "task format"
   },
   "dependencies": {
     "radix-ui": "^1.4.3",
@@ -46,7 +34,6 @@
     "@vitejs/plugin-react": "^6.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "concurrently": "^9.1.2",
     "electron": "11.5.0",
     "electron-builder": "^26.8.1",
     "lucide-react": "^1.7.0",

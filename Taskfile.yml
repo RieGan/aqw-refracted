@@ -1,0 +1,156 @@
+version: '3'
+
+interval: 500ms
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    desc: Start development environment
+    deps: [build:main, build:preload]
+    cmds:
+      - task --parallel dev:renderer dev:main-watch
+
+  dev:
+    desc: Start development environment (alias for default)
+    deps: [build:main, build:preload]
+    cmds:
+      - task --parallel dev:renderer dev:main-watch
+
+  dev:renderer:
+    desc: Vite dev server with HMR
+    cmds:
+      - vite
+
+  dev:main-watch:
+    desc: Watch and recompile main process
+    cmds:
+      - tsc -p tsconfig.node.json --watch
+
+  dev:preload:
+    desc: Watch and recompile preload scripts
+    watch: true
+    sources:
+      - src/preload/**/*.ts
+      - tsconfig.preload.json
+    cmds:
+      - tsc -p tsconfig.preload.json
+
+  start:
+    desc: Launch Electron (Rosetta 2 on Apple Silicon)
+    cmds:
+      - cmd: arch -x86_64 electron .
+        platforms: [darwin]
+      - cmd: electron .
+        platforms: [linux, windows]
+
+  build:
+    desc: Build all (main, preload, renderer)
+    cmds:
+      - task: build:main
+      - task: build:preload
+      - task: build:renderer
+
+  build:main:
+    desc: Compile main process
+    sources:
+      - src/main/**/*.ts
+      - tsconfig.node.json
+    generates:
+      - out/main/**/*.js
+    cmds:
+      - tsc -p tsconfig.node.json
+
+  build:preload:
+    desc: Compile preload scripts
+    sources:
+      - src/preload/**/*.ts
+      - tsconfig.preload.json
+    generates:
+      - out/preload/**/*.js
+    cmds:
+      - tsc -p tsconfig.preload.json
+
+  build:renderer:
+    desc: Bundle renderer with Vite
+    sources:
+      - src/renderer/**/*
+      - vite.config.ts
+      - tailwind.config.js
+      - postcss.config.js
+    generates:
+      - out/renderer/**/*
+    cmds:
+      - vite build
+
+  typecheck:
+    desc: Run all type checks
+    cmds:
+      - task: typecheck:node
+      - task: typecheck:preload
+      - task: typecheck:web
+
+  typecheck:node:
+    desc: Type-check main process
+    cmds:
+      - tsc --noEmit -p tsconfig.node.json
+
+  typecheck:preload:
+    desc: Type-check preload scripts
+    cmds:
+      - tsc --noEmit -p tsconfig.preload.json
+
+  typecheck:web:
+    desc: Type-check renderer
+    cmds:
+      - tsc --noEmit -p tsconfig.web.json
+
+  lint:
+    desc: Lint and fix code
+    cmds:
+      - biome check --write .
+
+  format:
+    desc: Format code
+    cmds:
+      - biome format --write .
+
+  dist:
+    desc: Build and package for current platform
+    deps: [build]
+    cmds:
+      - cmd: electron-builder --mac
+        platforms: [darwin]
+      - cmd: electron-builder --linux
+        platforms: [linux]
+      - cmd: electron-builder --win
+        platforms: [windows]
+
+  dist:linux:
+    desc: Build and package for Linux
+    deps: [build]
+    cmds:
+      - electron-builder --linux
+
+  dist:win:
+    desc: Build and package for Windows
+    deps: [build]
+    cmds:
+      - electron-builder --win
+
+  dist:mac:
+    desc: Build and package for macOS
+    deps: [build]
+    cmds:
+      - electron-builder --mac
+
+  dist:all:
+    desc: Build and package for all platforms
+    deps: [build]
+    cmds:
+      - electron-builder --linux --win --mac
+
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - rm -rf out dist
