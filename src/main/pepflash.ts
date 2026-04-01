@@ -14,11 +14,11 @@ export function setupPepFlash(): void {
   }
 
   console.log(
-    `[PepFlash] Setting up Pepper Flash plugin for platform: ${process.platform} ${process.arch}`,
+    `[AQW Refracted] Setting up Pepper Flash plugin for platform: ${process.platform} ${process.arch}`,
   )
   const platformConfig = pluginMap[process.platform]
   if (!platformConfig) {
-    console.error('[PepFlash] Unsupported platform:', process.platform)
+    console.error('[AQW Refracted] Unsupported platform:', process.platform)
     return
   }
 
@@ -32,7 +32,7 @@ export function setupPepFlash(): void {
   const flashPluginPath = possiblePaths.find((p: string) => fs.existsSync(p))
 
   if (!flashPluginPath) {
-    console.error('[PepFlash] Plugin not found in any of:', possiblePaths)
+    console.error('[AQW Refracted] Plugin not found in any of:', possiblePaths)
     return
   }
 
@@ -42,5 +42,5 @@ export function setupPepFlash(): void {
   app.commandLine.appendSwitch('enable-plugins')
   app.commandLine.appendSwitch('allow-outdated-plugins')
 
-  console.log(`[PepFlash] Plugin v${platformConfig.version} loaded from: ${flashPluginPath}`)
+  console.log(`[AQW Refracted] Plugin v${platformConfig.version} loaded from: ${flashPluginPath}`)
 }

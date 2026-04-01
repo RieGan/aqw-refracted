@@ -1,7 +1,7 @@
 {
-  "name": "pepflash-electron",
+  "name": "aqw-refracted",
   "version": "0.1.0",
-  "description": "Electron app with Pepper Flash (PepFlash) support",
+  "description": "AQW Refracted - Adventure Quest Worlds companion with native Flash support",
   "main": "./out/main/index.js",
   "browserslist": [
     "Chrome 87"

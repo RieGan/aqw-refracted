@@ -32,7 +32,7 @@ function createWindow(): void {
     height: WINDOW_HEIGHT,
     minWidth: WINDOW_MIN_WIDTH,
     minHeight: WINDOW_MIN_HEIGHT,
-    title: 'PepFlash Electron',
+    title: 'AQW Refracted',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,

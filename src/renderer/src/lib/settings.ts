@@ -1,4 +1,4 @@
-export const SETTINGS_STORAGE_KEY = 'pepflash-settings'
+export const SETTINGS_STORAGE_KEY = 'aqw-refracted-settings'
 export const DEFAULT_SWF_URL = ''
 
 export type SwfSourceType = 'url' | 'file'

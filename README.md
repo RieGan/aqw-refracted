@@ -1,14 +1,31 @@
-# PepFlash Electron
+# AQW Refracted
 
-Electron application with native Pepper Flash (PepFlash) support using the Pepper Flash plugin from [clean-flash-builds](https://github.com/darktohka/clean-flash-builds).
+<p align="center">
+  <img src="src/assets/aqw_refracted_256.png" width="128" height="128" alt="AQW Refracted Icon">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Built%20with-Electron-informational" alt="Built with Electron">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-brightgreen" alt="Platforms">
+</p>
+
+AQW Refracted is a modern desktop companion for **Adventure Quest Worlds** ([aq.com](https://www.aq.com)). Built with **Electron**, it provides a native-like experience with genuine Pepper Flash support, allowing you to play AQW games with improved performance and specialized tools.
+
+AQW Refracted - Artix Quest Worlds companion with native Flash support, using the Pepper Flash plugin from [clean-flash-builds](https://github.com/darktohka/clean-flash-builds).
+
+## 🚀 Downloads
+
+If you just want to play and don't want to build the app yourself, you can download the latest pre-built binaries from the **[Releases](https://github.com/riegan/aqw-refracted/releases)** page.
 
 ## Features
 
 - **Native Flash Support** - Uses real Pepper Flash plugin instead of emulation
 - **PepFlash Plugin Integration** - Cross-platform Pepper Flash plugin support (Windows, macOS, Linux)
+- **Hardware Acceleration** - Custom Electron configuration for optimal GPU performance and hardware-accelerated rendering
+- **High Performance** - Unlocked frame rate and optimized GPU settings for smooth gameplay
 - **TypeScript** - Full TypeScript support with latest features
 - **React 19** - Modern UI built with React 19
-- **Tailwind CSS v4** - Utility-first styling
+- **Tailwind CSS v3** - Utility-first styling
 - **Debugger Integration** - Chrome DevTools for element inspection and input simulation
 
 ## Tech Stack
@@ -18,13 +35,14 @@ Electron application with native Pepper Flash (PepFlash) support using the Peppe
 - **React 19** - UI library
 - **TypeScript** - Type-safe development
 - **Vite** - Build tool for renderer process
-- **Tailwind CSS v4** - Styling
+- **Tailwind CSS v3** - Styling
 - **Radix UI + shadcn/ui** - UI components
 
 ## Prerequisites
 
 1. **Node.js** (latest LTS)
 2. **pnpm** package manager
+3. **[Task](https://taskfile.dev)** (optional) - Used for simplified development and build commands
 
 ## Setup
 
@@ -72,7 +90,7 @@ pnpm dist:all
 ## Project Structure
 
 ```
-pepflash-electron/
+aqw-refracted/
 ├── src/
 │   ├── main/              # Electron main process
 │   │   ├── index.ts       # Main entry with PepFlash setup
@@ -119,6 +137,10 @@ In production builds, electron-builder bundles only the plugin for the target pl
 - **Electron 11.5.0** is the last version that supports the Pepper Flash plugin (Chrome 87 was the last to support Flash, removed in Chrome 88/Electron 12+)
 - Flash plugin is included in the project via [clean-flash-builds](https://github.com/darktohka/clean-flash-builds) (pre-built releases from [CleanFlash](https://gitlab.com/cleanflash/installer)) - no separate download required
 - This project is specifically designed for playing **AQW (AdventureQuest Worlds)** SWF files
+- **macOS Users**: If you see "App is damaged and cannot be opened" when running the app, use this command in your terminal to allow it to run:
+  ```bash
+  sudo xattr -cr /path/to/AQW\ Refracted.app
+  ```
 - **macOS M-series (Apple Silicon) users**: Rosetta 2 is required to run this application
 - Flash content must be loaded from local files or allowed domains
 - Some modern websites may block Flash content
