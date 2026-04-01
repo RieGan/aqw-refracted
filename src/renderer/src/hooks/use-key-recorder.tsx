@@ -57,7 +57,7 @@ export function useKeyRecorder() {
   }, [])
 
   const clear = useCallback(() => {
-    setState('waiting')
+    setState((prev) => (prev === 'recording' ? 'waiting' : prev))
     isInitialKeyPressedRef.current = false
     keyPressesRef.current = []
     setKeyPresses(keyPressesRef.current)

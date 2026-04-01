@@ -10,4 +10,6 @@ export function setupGpu(): void {
 
   // Only use if you still see "Software Only" for Video Decode on Linux
   // app.commandLine.appendSwitch('use-gl', 'egl');
+
+  app.commandLine.appendSwitch('disable-frame-rate-limit');
 }

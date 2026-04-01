@@ -107,7 +107,7 @@ export function SavedRecordingsList({
               <div className="flex flex-col -my-0.5 shrink-0">
                 <button
                   type="button"
-                  className="p-0 text-muted-foreground/30 hover:text-muted-foreground transition-colors disabled:opacity-0"
+                  className="p-0 bg-[hsl(222,47%,4%)] text-[hsl(220,10%,30%)] hover:text-[hsl(220,10%,82%)] transition-colors disabled:opacity-0"
                   disabled={index === 0}
                   onClick={(e) => {
                     e.stopPropagation()
@@ -118,7 +118,7 @@ export function SavedRecordingsList({
                 </button>
                 <button
                   type="button"
-                  className="p-0 text-muted-foreground/30 hover:text-muted-foreground transition-colors disabled:opacity-0"
+                  className="p-0 bg-[hsl(222,47%,4%)] text-[hsl(220,10%,30%)] hover:text-[hsl(220,10%,82%)] transition-colors disabled:opacity-0"
                   disabled={index === records.length - 1}
                   onClick={(e) => {
                     e.stopPropagation()
@@ -146,7 +146,7 @@ export function SavedRecordingsList({
                     />
                     <button
                       type="button"
-                      className="p-0.5 text-green-400 hover:text-green-300 transition-colors"
+                      className="p-0.5 bg-[hsl(222,47%,4%)] text-[hsl(142,76%,36%)] hover:text-[hsl(142,76%,46%)] transition-colors"
                       onClick={(e) => {
                         e.stopPropagation()
                         handleConfirmRename()
@@ -156,7 +156,7 @@ export function SavedRecordingsList({
                     </button>
                     <button
                       type="button"
-                      className="p-0.5 text-muted-foreground hover:text-foreground transition-colors"
+                      className="p-0.5 bg-[hsl(222,47%,4%)] text-[hsl(220,5%,46%)] hover:text-[hsl(220,10%,82%)] transition-colors"
                       onClick={(e) => {
                         e.stopPropagation()
                         handleCancelRename()
@@ -180,7 +180,7 @@ export function SavedRecordingsList({
                   <DropdownMenuTrigger asChild>
                     <button
                       type="button"
-                      className="p-0.5 shrink-0 text-muted-foreground/40 hover:text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="p-0.5 shrink-0 bg-[hsl(222,47%,4%)] text-[hsl(220,5%,46%)] hover:text-[hsl(220,10%,82%)] opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <MoreVertical className="size-3.5" />

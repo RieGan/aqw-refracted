@@ -10,7 +10,7 @@ interface ToolSidebarProps {
 
 export function ToolSidebar({ onClose }: ToolSidebarProps) {
   return (
-    <div className="flex w-75 flex-col overflow-hidden border-l border-border/10 bg-background/95 backdrop-blur-xl shadow-2xl">
+    <div className="flex w-72 flex-col overflow-hidden border-l border-border/10 bg-background/95 backdrop-blur-xl shadow-2xl">
       <Tabs defaultValue="keypress" className="flex h-full flex-col">
         <div className="flex flex-col p-2 z-10">
           <div className="flex items-center justify-between mb-2 px-1">
@@ -26,7 +26,7 @@ export function ToolSidebar({ onClose }: ToolSidebarProps) {
               <X className="size-3.5" />
             </Button>
           </div>
-          <TabsList className="grid grid-cols-2 h-8 bg-muted/20 p-0.5 rounded-lg">
+          <TabsList className="grid grid-cols-2 h-8 bg-muted/20 p-0.5 rounded-lg space-x-2">
             <TabsTrigger
               value="keypress"
               className="gap-1.5 text-[10px] font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground rounded-md shadow-none data-[state=active]:shadow-sm"

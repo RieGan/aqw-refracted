@@ -51,7 +51,6 @@ function createWindow(): void {
     mainWindow.setMenu(null)
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
-    // mainWindow.loadURL('chrome://gpu')
   }
 
   mainWindow.on('closed', () => {

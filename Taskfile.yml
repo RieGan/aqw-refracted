@@ -75,7 +75,7 @@ tasks:
     generates:
       - out/renderer/**/*
     cmds:
-      - pnpm vite build
+      - pnpm vite build --emptyOutDir
 
   typecheck:
     desc: Run all type checks
