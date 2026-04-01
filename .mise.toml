@@ -1,0 +1,12 @@
+[tools]
+# Electron 11 typically pairs well with Node 12 or 14
+node = "14.21.3"
+pnpm = "8.15.4"
+
+[env]
+# Force Electron's install scripts to always target x64
+ELECTRON_ARCH = "x64"
+npm_config_arch = "x64"
+
+# Ensure the PATH prioritizes the x86 binaries
+PATH = "{{config_root}}/node_modules/.bin:{{env.PATH}}"
