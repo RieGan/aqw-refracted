@@ -1,6 +1,6 @@
 {
   "name": "aqw-refracted",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AQW Refracted - Adventure Quest Worlds companion with native Flash support",
   "main": "./out/main/index.js",
   "browserslist": [
