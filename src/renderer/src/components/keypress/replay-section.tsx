@@ -74,7 +74,7 @@ export function ReplaySection({ selectedRecord, replay, disabled }: ReplaySectio
             <div className="flex flex-col gap-px max-h-40 overflow-y-auto rounded-lg bg-background/50 p-1.5">
               {selectedRecord.entries.map((entry, index) => (
                 <div
-                  key={`${entry.key}-${entry.nextDelay}`}
+                  key={`${selectedRecord.name}_${index}_${entry}`}
                   ref={
                     index === replay.currentIndex && replay.isReplaying ? activeKeyRef : undefined
                   }
