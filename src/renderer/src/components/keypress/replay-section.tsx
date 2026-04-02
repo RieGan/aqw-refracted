@@ -37,41 +37,41 @@ export function ReplaySection({ selectedRecord, replay, disabled }: ReplaySectio
   }, [selectedRecord, loopEnabled])
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-1.5 px-1">
+    <div className="flex flex-col gap-2.5">
+      <div className="flex items-center gap-2 px-1">
         <Play
           className={cn(
-            'size-3.5',
+            'size-4',
             replay.isReplaying ? 'text-green-400 fill-green-400' : 'text-muted-foreground',
           )}
         />
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Replay
         </span>
         {replay.isReplaying && (
-          <span className="ml-auto text-[9px] font-medium text-green-400 uppercase tracking-wide">
+          <span className="ml-auto text-[11px] font-medium text-green-400 uppercase tracking-wide">
             Playing{loopEnabled ? ' (loop)' : ''}...
           </span>
         )}
       </div>
 
-      <div className="flex flex-col gap-2.5 rounded-xl bg-muted/20 p-3">
+      <div className="flex flex-col gap-3.5 rounded-xl bg-muted/30 p-3.5">
         {!selectedRecord ? (
-          <p className="text-[10px] text-muted-foreground/50 text-center py-3">
+          <p className="text-xs text-muted-foreground/70 text-center py-3">
             Select a recording below to replay
           </p>
         ) : (
           <>
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-medium text-foreground/80 truncate">
+              <span className="text-xs font-medium text-foreground truncate">
                 {selectedRecord.name}
               </span>
-              <span className="text-[9px] text-muted-foreground/50 shrink-0 ml-2">
+              <span className="text-[11px] text-muted-foreground/70 shrink-0 ml-2">
                 {selectedRecord.entries.length} keys
               </span>
             </div>
 
-            <div className="flex flex-col gap-px max-h-32 overflow-y-auto rounded-lg bg-background/30 p-1.5">
+            <div className="flex flex-col gap-px max-h-40 overflow-y-auto rounded-lg bg-background/50 p-1.5">
               {selectedRecord.entries.map((entry, index) => (
                 <div
                   key={`${entry.key}-${entry.nextDelay}`}
@@ -79,27 +79,27 @@ export function ReplaySection({ selectedRecord, replay, disabled }: ReplaySectio
                     index === replay.currentIndex && replay.isReplaying ? activeKeyRef : undefined
                   }
                   className={cn(
-                    'flex items-center gap-2 px-1.5 py-0.5 rounded text-[10px] transition-colors',
+                    'flex items-center gap-2.5 px-1.5 py-0.5 rounded text-xs transition-colors',
                     index === replay.currentIndex && replay.isReplaying
-                      ? 'bg-primary/15 text-primary'
+                      ? 'bg-primary/20 text-primary'
                       : index < replay.currentIndex && replay.isReplaying
-                        ? 'opacity-40'
+                        ? 'opacity-50'
                         : '',
                   )}
                 >
                   <span
                     className={cn(
-                      'size-4 flex items-center justify-center rounded font-mono text-[10px] font-bold shrink-0',
+                      'size-5 flex items-center justify-center rounded font-mono text-xs font-bold shrink-0',
                       index === replay.currentIndex && replay.isReplaying
-                        ? 'bg-primary/20'
-                        : 'bg-muted/40',
+                        ? 'bg-primary/25'
+                        : 'bg-muted/50',
                     )}
                   >
                     {entry.key}
                   </span>
 
                   {/* <span className="text-muted-foreground/40">→</span> */}
-                  <span className="text-muted-foreground text-[9px]">
+                  <span className="text-muted-foreground text-[11px]">
                     {formatDelay(entry.nextDelay)}
                   </span>
                   {index === replay.currentIndex && replay.isReplaying && (
@@ -109,30 +109,30 @@ export function ReplaySection({ selectedRecord, replay, disabled }: ReplaySectio
               ))}
             </div>
 
-            <div className="flex items-center gap-1.5">
-              <div className="flex items-center gap-1.5 mr-auto">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mr-auto">
                 <Switch
                   size="sm"
                   checked={loopEnabled}
                   onCheckedChange={setLoopEnabled}
                   disabled={replay.isReplaying}
                 />
-                <Label className="text-[9px] text-muted-foreground select-none">Loop</Label>
+                <Label className="text-[11px] text-muted-foreground select-none">Loop</Label>
               </div>
 
               {!replay.isReplaying ? (
-                <Button size="xs" className="text-[10px]" disabled={disabled} onClick={handlePlay}>
-                  <Play className="size-3" />
+                <Button size="xs" className="text-xs" disabled={disabled} onClick={handlePlay}>
+                  <Play className="size-3.5" />
                   Play
                 </Button>
               ) : (
                 <Button
                   size="xs"
                   variant="destructive"
-                  className="text-[10px]"
+                  className="text-xs"
                   onClick={() => replay.stop()}
                 >
-                  <Square className="size-2.5 fill-current" />
+                  <Square className="size-3 fill-current" />
                   Stop
                 </Button>
               )}

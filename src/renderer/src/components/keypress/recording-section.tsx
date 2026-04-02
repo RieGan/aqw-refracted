@@ -73,11 +73,11 @@ export function RecordingSection({
   }, [recordCount, saveName, recorder, onSave])
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-1.5 px-1">
+    <div className="flex flex-col gap-2.5">
+      <div className="flex items-center gap-2 px-1">
         <Circle
           className={cn(
-            'size-3.5',
+            'size-4',
             recorder.state === 'recording'
               ? 'fill-red-500 text-red-500 animate-pulse'
               : recorder.state === 'waiting'
@@ -85,13 +85,13 @@ export function RecordingSection({
                 : 'text-muted-foreground',
           )}
         />
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Recording
         </span>
         {recorder.state !== 'idle' && (
           <span
             className={cn(
-              'ml-auto text-[9px] font-medium uppercase tracking-wide',
+              'ml-auto text-[11px] font-medium uppercase tracking-wide',
               recorder.state === 'recording' ? 'text-red-400' : 'text-amber-400',
             )}
           >
@@ -100,41 +100,41 @@ export function RecordingSection({
         )}
       </div>
 
-      <div className="flex flex-col gap-2.5 rounded-xl bg-muted/20 p-3">
-        <div className="flex gap-1.5">
+      <div className="flex flex-col gap-3.5 rounded-xl bg-muted/30 p-3.5">
+        <div className="flex gap-2">
           <Button
             size="xs"
             variant={isRecording ? 'outline' : 'default'}
-            className="flex-1 text-[10px]"
+            className="flex-1 text-xs"
             disabled={isRecording || disabled}
             onClick={handleStartRecording}
           >
-            <Circle className="size-2.5 fill-current" />
+            <Circle className="size-3 fill-current" />
             Record
           </Button>
           <Button
             size="xs"
             variant="outline"
-            className="flex-1 text-[10px]"
+            className="flex-1 text-xs"
             disabled={!isRecording}
             onClick={handleStopRecording}
           >
-            <Square className="size-2.5 fill-current" />
+            <Square className="size-3 fill-current" />
             Stop
           </Button>
           <Button
             size="xs"
             variant="ghost"
-            className="text-[10px] px-2"
+            className="text-xs px-3"
             disabled={recorder.keyPresses.length === 0 && !isRecording}
             onClick={() => recorder.clear()}
           >
-            <X className="size-3" />
+            <X className="size-3.5" />
           </Button>
         </div>
 
         {recorder.state === 'waiting' && (
-          <p className="text-[10px] text-muted-foreground/50 text-center py-1">
+          <p className="text-xs text-muted-foreground/70 text-center py-1">
             Press a key (1-6) to begin...
           </p>
         )}
@@ -142,34 +142,36 @@ export function RecordingSection({
         {recorder.keyPresses.length > 0 && (
           <div
             ref={recordingListRef}
-            className="flex flex-col gap-px max-h-28 overflow-y-auto rounded-lg bg-background/30 p-1.5"
+            className="flex flex-col gap-px max-h-36 overflow-y-auto rounded-lg bg-background/50 p-1.5"
           >
             {recordedDelays.map((entry) => (
               <div
                 key={entry.ts}
-                className="flex items-center gap-2 px-1.5 py-0.5 rounded text-[10px]"
+                className="flex items-center gap-2.5 px-1.5 py-0.5 rounded text-xs"
               >
-                <span className="size-4 flex items-center justify-center rounded bg-muted/40 font-mono text-[10px] font-bold">
+                <span className="size-5 flex items-center justify-center rounded bg-muted/50 font-mono text-xs font-bold">
                   {entry.key}
                 </span>
-                <span className="text-muted-foreground/40">→</span>
-                <span className="text-muted-foreground text-[9px]">{formatDelay(entry.delay)}</span>
+                <span className="text-muted-foreground/60">→</span>
+                <span className="text-muted-foreground text-[11px]">
+                  {formatDelay(entry.delay)}
+                </span>
               </div>
             ))}
           </div>
         )}
 
         {hasPendingRecording && (
-          <div className="flex flex-col gap-1.5 border-t border-border/30 pt-2">
+          <div className="flex flex-col gap-2 border-t border-border/40 pt-2">
             <Input
-              className="h-6 text-[10px] bg-background/50 px-2"
+              className="h-7 text-xs bg-background/60 px-3"
               placeholder={`Recording ${recordCount + 1}`}
               value={saveName}
               onChange={(e) => setSaveName(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSave()}
             />
-            <Button size="xs" className="text-[10px] w-full" onClick={handleSave}>
-              <Save className="size-3" />
+            <Button size="xs" className="text-xs w-full" onClick={handleSave}>
+              <Save className="size-3.5" />
               Save Recording
             </Button>
           </div>

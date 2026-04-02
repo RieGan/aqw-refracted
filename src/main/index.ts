@@ -1,13 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import { join } from 'path'
-import {
-  OFFSCREEN_X,
-  OFFSCREEN_Y,
-  WINDOW_HEIGHT,
-  WINDOW_MIN_HEIGHT,
-  WINDOW_MIN_WIDTH,
-  WINDOW_WIDTH,
-} from './constants'
+import { WINDOW_HEIGHT, WINDOW_MIN_HEIGHT, WINDOW_MIN_WIDTH, WINDOW_WIDTH } from './constants'
 import { setupGpu } from './gpu'
 import { setupIpcHandlers } from './ipc-handlers'
 import { setupPepFlash } from './pepflash'
@@ -33,6 +26,7 @@ function createWindow(): void {
     minWidth: WINDOW_MIN_WIDTH,
     minHeight: WINDOW_MIN_HEIGHT,
     title: 'AQW Refracted',
+    autoHideMenuBar: true,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
@@ -48,29 +42,12 @@ function createWindow(): void {
 
   if (process.env.ELECTRON_RENDERER_URL) {
     mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL)
-    mainWindow.setMenu(null)
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
   mainWindow.on('closed', () => {
     mainWindow = null
-  })
-
-  mainWindow.on('minimize', () => {
-    mainWindow?.setSkipTaskbar(true)
-    mainWindow?.setBounds({
-      x: OFFSCREEN_X,
-      y: OFFSCREEN_Y,
-      width: WINDOW_WIDTH,
-      height: WINDOW_HEIGHT,
-    })
-  })
-
-  mainWindow.on('restore', () => {
-    mainWindow?.setSkipTaskbar(false)
-    mainWindow?.center()
-    mainWindow?.focus()
   })
 }
 
@@ -86,7 +63,5 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  app.quit()
 })

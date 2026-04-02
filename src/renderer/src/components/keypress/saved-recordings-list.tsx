@@ -67,20 +67,20 @@ export function SavedRecordingsList({
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-1.5 px-1">
-        <Archive className="size-3.5 text-muted-foreground" />
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+    <div className="flex flex-col gap-2.5">
+      <div className="flex items-center gap-2 px-1">
+        <Archive className="size-4 text-muted-foreground" />
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           Saved Recordings
         </span>
         {records.length > 0 && (
-          <span className="ml-auto text-[9px] text-muted-foreground/40">{records.length}</span>
+          <span className="ml-auto text-[11px] text-muted-foreground/60">{records.length}</span>
         )}
       </div>
 
-      <div className="flex flex-col gap-1 rounded-xl bg-muted/20 p-2">
+      <div className="flex flex-col gap-1 rounded-xl bg-muted/30 p-3">
         {records.length === 0 ? (
-          <p className="text-[10px] text-muted-foreground/50 text-center py-3">
+          <p className="text-xs text-muted-foreground/70 text-center py-3">
             No saved recordings yet
           </p>
         ) : (
@@ -91,8 +91,8 @@ export function SavedRecordingsList({
               className={cn(
                 'group flex items-center gap-1 rounded-lg p-1.5 transition-colors cursor-pointer text-left w-full data-[disabled]:opacity-50 data-[disabled]:pointer-events-none',
                 selectedRecordId === record.id
-                  ? 'bg-primary/10 ring-1 ring-primary/20'
-                  : 'hover:bg-muted/30',
+                  ? 'bg-primary/15 ring-1 ring-primary/30'
+                  : 'hover:bg-muted/40',
               )}
               onClick={() => editingId !== record.id && !disabled && onSelect(record.id)}
               role="button"
@@ -114,7 +114,7 @@ export function SavedRecordingsList({
                     onReorder(index, 'up')
                   }}
                 >
-                  <ChevronUp className="size-3" />
+                  <ChevronUp className="size-3.5" />
                 </button>
                 <button
                   type="button"
@@ -125,7 +125,7 @@ export function SavedRecordingsList({
                     onReorder(index, 'down')
                   }}
                 >
-                  <ChevronDown className="size-3" />
+                  <ChevronDown className="size-3.5" />
                 </button>
               </div>
 
@@ -133,7 +133,7 @@ export function SavedRecordingsList({
                 {editingId === record.id ? (
                   <div className="flex items-center gap-1">
                     <Input
-                      className="h-5 text-[10px] bg-background/50 px-1.5 flex-1"
+                      className="h-6 text-xs bg-background/60 px-1.5 flex-1"
                       value={editingName}
                       onChange={(e) => setEditingName(e.target.value)}
                       onClick={(e) => e.stopPropagation()}
@@ -152,7 +152,7 @@ export function SavedRecordingsList({
                         handleConfirmRename()
                       }}
                     >
-                      <Check className="size-3" />
+                      <Check className="size-3.5" />
                     </button>
                     <button
                       type="button"
@@ -162,13 +162,13 @@ export function SavedRecordingsList({
                         handleCancelRename()
                       }}
                     >
-                      <X className="size-3" />
+                      <X className="size-3.5" />
                     </button>
                   </div>
                 ) : (
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-medium truncate">{record.name}</span>
-                    <span className="text-[9px] text-muted-foreground/40">
+                    <span className="text-xs font-medium truncate">{record.name}</span>
+                    <span className="text-[11px] text-muted-foreground/60">
                       {record.entries.length} keys
                     </span>
                   </div>
@@ -183,23 +183,23 @@ export function SavedRecordingsList({
                       className="p-0.5 shrink-0 bg-[hsl(222,47%,4%)] text-[hsl(220,5%,46%)] hover:text-[hsl(220,10%,82%)] opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <MoreVertical className="size-3.5" />
+                      <MoreVertical className="size-4" />
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="min-w-[120px]">
                     <DropdownMenuItem
-                      className="text-xs gap-2"
+                      className="text-sm gap-2.5"
                       onClick={() => handleRename(record.id)}
                     >
-                      <Pencil className="size-3" />
+                      <Pencil className="size-3.5" />
                       Rename
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      className="text-xs gap-2 text-destructive focus:text-destructive"
+                      className="text-sm gap-2.5 text-destructive focus:text-destructive"
                       onClick={() => onDelete(record.id)}
                     >
-                      <Trash2 className="size-3" />
+                      <Trash2 className="size-3.5" />
                       Delete
                     </DropdownMenuItem>
                   </DropdownMenuContent>

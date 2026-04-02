@@ -9,7 +9,7 @@ function isValidKey(key: string) {
 }
 
 export function useKeyRecorder() {
-  const { embedRef } = useElementRef()
+  const embedRef = useElementRef()
   const [state, setState] = useState<RecorderStatus>('idle')
   const [keyPresses, setKeyPresses] = useState<KeyPressEntry[]>([])
   const keyPressesRef = useRef<KeyPressEntry[]>([])
